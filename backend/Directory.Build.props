@@ -1,0 +1,25 @@
+<Project>
+   <PropertyGroup>
+      <AnalysisLevel>latest</AnalysisLevel>
+      <AnalysisMode>All</AnalysisMode>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+      <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+      <EnforeCodeStyleInBuild>true</EnforeCodeStyleInBuild>
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
+   </PropertyGroup>
+
+   <ItemGroup>
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+         <PrivateAssets>all</PrivateAssets>
+         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
+         <PrivateAssets>all</PrivateAssets>
+         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      </PackageReference>
+      <!-- <PackageReference Include="CSharpier.MsBuild" Version="0.21.0">
+         <PrivateAssets>all</PrivateAssets>
+         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      </PackageReference> -->
+   </ItemGroup>
+</Project>
