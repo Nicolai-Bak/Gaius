@@ -1,0 +1,39 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.dev
+    environment:
+      # - ASPNETCORE_ENVIRONMENT:=Development
+      # - ASPNETCORE_Kestrel__Certificates__Default__Password=pa55w0rd
+      # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/n-bak.pfx
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+    ports:
+      - 5021:5021
+    volumes:
+      - ./.editorconfig:/.editorconfig
+      - ./.config:/.config
+      - ./backend:/backend
+      # - ~/.aspnet/https:/https:ro
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/package.json:/app/package.json
+      - ./frontend/pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - ./frontend/src:/app/src/
+      - ./frontend/dist:/app/dist
+      - ./frontend/public:/app/public
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.ts:/app/vite.config.ts
+      - ./frontend/tailwind.config.js:/app/tailwind.config.js
+      - ./frontend/postcss.config.js:/app/postcss.config.js
+    ports:
+      - 3000:3000

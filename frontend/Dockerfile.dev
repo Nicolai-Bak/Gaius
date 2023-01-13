@@ -1,0 +1,19 @@
+# Dockerfile
+# Pull the base image
+FROM node:19-alpine3.15 AS install-env
+
+# Install Pnpm
+RUN npm install --global pnpm
+
+# Set the working directory
+WORKDIR /app
+
+# Copy app dependencies to container
+COPY ./package.json ./
+COPY ./pnpm-lock.yaml ./
+
+# Install dependencies
+RUN pnpm install
+
+# Deploy app for local development
+CMD ["pnpm", "dev","--host"]
