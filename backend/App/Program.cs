@@ -16,7 +16,7 @@ builder.Services.AddCors(
     options =>
         options.AddPolicy(
             name: ALLOW_ALL_ORIGINS,
-            policy => policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod()
+            policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
         )
 );
 
@@ -60,6 +60,7 @@ app.MapGet(
     )
     .WithName("GetWeatherForecast")
     .WithOpenApi();
+
 app.UseCors(ALLOW_ALL_ORIGINS);
 
 app.Run();

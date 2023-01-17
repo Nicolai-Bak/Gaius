@@ -4,7 +4,10 @@ const App: Component = () => {
   const [weatherForecasts, setWeatherForecasts] = createSignal([]);
 
   onMount(async () => {
-    const res = await fetch(`http://localhost:5021/weather-forecast`);
+    const res = await fetch(
+      `http://host.docker.internal:5021/weather-forecast`
+    );
+
     setWeatherForecasts(await res.json());
   });
   return (

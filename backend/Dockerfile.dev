@@ -2,8 +2,4 @@
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /backend
-
-COPY ./App/App.csproj ./App/App.csproj
-RUN dotnet restore App
-
 ENTRYPOINT ["dotnet", "watch", "run", "--project", "App", "--urls", "http://+:5021"]
