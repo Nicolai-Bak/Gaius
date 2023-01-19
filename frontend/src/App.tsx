@@ -5,7 +5,7 @@ const App: Component = () => {
 
   onMount(async () => {
     const res = await fetch(
-      `http://host.docker.internal:5021/weather-forecast`
+      `http://host.docker.internal:5101/weather-forecast`
     );
 
     setWeatherForecasts(await res.json());

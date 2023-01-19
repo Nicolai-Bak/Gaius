@@ -2,12 +2,31 @@
 version: "3.8"
 
 services:
-  backend:
+  gateway:
     build:
-      context: ./backend
+      context: ./backend/gateway
+      dockerfile: ./Dockerfile.dev
+    depends_on:
+      - weather
+    environment:
+      - ASPNETCORE_ENVIRONMENT:=Development
+      # - ASPNETCORE_Kestrel__Certificates__Default__Password=pa55w0rd
+      # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/n-bak.pfx
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+    ports:
+      - 5101:5101
+    volumes:
+      - ./.editorconfig:/.editorconfig
+      - ./.config:/.config
+      - ./backend/gateway:/backend
+      # - ~/.aspnet/https:/https:ro
+
+  weather:
+    build:
+      context: ./backend/weather
       dockerfile: ./Dockerfile.dev
     environment:
-      # - ASPNETCORE_ENVIRONMENT:=Development
+      - ASPNETCORE_ENVIRONMENT:=Development
       # - ASPNETCORE_Kestrel__Certificates__Default__Password=pa55w0rd
       # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/n-bak.pfx
       - DOTNET_USE_POLLING_FILE_WATCHER=true
@@ -16,7 +35,7 @@ services:
     volumes:
       - ./.editorconfig:/.editorconfig
       - ./.config:/.config
-      - ./backend:/backend
+      - ./backend/weather:/backend
       # - ~/.aspnet/https:/https:ro
 
   frontend:
@@ -24,7 +43,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     depends_on:
-      - backend
+      - gateway
     volumes:
       - ./frontend/package.json:/app/package.json
       - ./frontend/pnpm-lock.yaml:/app/pnpm-lock.yaml
