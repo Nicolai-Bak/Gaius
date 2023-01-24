@@ -2,4 +2,4 @@
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /backend
-ENTRYPOINT ["dotnet", "watch", "run", "--project", "App", "--urls", "http://+:5101"]
+ENTRYPOINT ["dotnet", "watch", "run", "--project", "src/App", "--urls", "http://+:5101"]

@@ -3,13 +3,14 @@ version: "3.8"
 
 services:
   gateway:
+    image: gateway
     build:
       context: ./backend/gateway
       dockerfile: ./Dockerfile.dev
     depends_on:
       - weather
     environment:
-      - ASPNETCORE_ENVIRONMENT:=Development
+      - ASPNETCORE_ENVIRONMENT=Development
       # - ASPNETCORE_Kestrel__Certificates__Default__Password=pa55w0rd
       # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/n-bak.pfx
       - DOTNET_USE_POLLING_FILE_WATCHER=true
@@ -22,11 +23,12 @@ services:
       # - ~/.aspnet/https:/https:ro
 
   weather:
+    image: weather
     build:
       context: ./backend/weather
       dockerfile: ./Dockerfile.dev
     environment:
-      - ASPNETCORE_ENVIRONMENT:=Development
+      - ASPNETCORE_ENVIRONMENT=Development
       # - ASPNETCORE_Kestrel__Certificates__Default__Password=pa55w0rd
       # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/n-bak.pfx
       - DOTNET_USE_POLLING_FILE_WATCHER=true
@@ -39,6 +41,7 @@ services:
       # - ~/.aspnet/https:/https:ro
 
   frontend:
+    image: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev

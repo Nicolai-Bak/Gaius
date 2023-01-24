@@ -47,7 +47,7 @@ app.MapGet(
         "/weather-forecast",
         () =>
             Enumerable
-                .Range(1, 10)
+                .Range(1, 5)
                 .Select(
                     index =>
                         new WeatherForecast(

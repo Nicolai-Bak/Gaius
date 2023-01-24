@@ -1,0 +1,33 @@
+version: "3.5"
+
+services:
+  gateway:
+    build:
+      context: ./backend/gateway
+      dockerfile: ./Dockerfile.prod
+    depends_on:
+      - weather
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - 80:80
+
+  weather:
+    build:
+      context: ./backend/weather
+      dockerfile: ./Dockerfile.prod
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:81
+    ports:
+      - 81:81
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    depends_on:
+      - gateway
+    ports:
+      - 80:80
