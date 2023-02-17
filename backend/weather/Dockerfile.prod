@@ -1,0 +1,22 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /app
+
+EXPOSE 81
+
+WORKDIR /app/src
+COPY ./src/App/*.csproj ./App/
+# COPY ./*.props ./
+RUN dotnet restore App/
+
+COPY ./src/ ./
+
+RUN echo $(ls -al)
+
+RUN dotnet build App/ --no-restore -c Release --no-incremental
+
+RUN dotnet publish App/ --no-build -c Release -o publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /app
+COPY --from=build /app/src/publish .
+ENTRYPOINT ["dotnet", "App.dll"]

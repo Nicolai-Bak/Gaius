@@ -1,6 +1,14 @@
 {
-   "editor.defaultFormatter": "csharpier.csharpier-vscode",
-   "[csharp]": {
-      "editor.defaultFormatter": "csharpier.csharpier-vscode"
-   }
+  // "editor.defaultFormatter": "csharpier.csharpier-vscode",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[csharp]": {
+    "editor.defaultFormatter": "csharpier.csharpier-vscode"
+  },
+  "cSpell.words": ["tailwindcss"],
+  "files.autoSave": "onFocusChange",
+  "cSpell.autoFormatConfigFile": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "css.lint.unknownAtRules": "ignore"
 }
