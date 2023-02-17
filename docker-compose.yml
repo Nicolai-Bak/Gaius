@@ -15,8 +15,9 @@ services:
       - 3000:3000
     command: pnpm dev --host
     volumes:
-      - ./frontend:/app:ro
+      - ./frontend:/app
       - /app/node_modules
+    restart: always
 
   frontend:
     container_name: frontend
@@ -32,5 +33,25 @@ services:
       - 443:443
     restart: always
 
+  gateway-dev:
+    container_name: backend-dev
+    build:
+      context: ./backend/gateway
+      dockerfile: Dockerfile
+      target: base
+    profiles:
+      - dev
+    networks:
+      - frontend
+      - backend
+    ports:
+      - 4000:4000
+    command: pnpm dev
+    volumes:
+      - ./backend/gateway:/app
+      - /app/node_modules
+    restart: always
+
 networks:
   frontend: {}
+  backend: {}

@@ -1,9 +1,55 @@
 import type { Component } from 'solid-js';
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  gql,
+  createQuery,
+} from '@merged/solid-apollo';
 
-const App: Component = () => {
+export const App: Component = () => {
+  const client = new ApolloClient({
+    uri: 'http://localhost:4000/graphql',
+    cache: new InMemoryCache(),
+  });
+
+  client
+    .query({
+      query: gql`
+        query ExampleQuery {
+          books {
+            author
+            year
+          }
+        }
+      `,
+    })
+    .then((result) => console.log(result));
+
   return (
-    <p class="text-6xl text-green-700 text-center py-20">Hello tailwind !!</p>
+    <ApolloProvider client={client}>
+      <FirstComponent />
+    </ApolloProvider>
   );
 };
 
-export default App;
+export const FirstComponent: Component = () => {
+  const data = createQuery(QUERY);
+
+  return (
+    <>
+      <h1 class="text-4xl">Hello</h1>
+      {JSON.stringify(data())}
+    </>
+  );
+};
+
+const QUERY = gql`
+  query ExampleQuery {
+    books {
+      title
+      author
+      year
+    }
+  }
+`;
