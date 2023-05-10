@@ -1,0 +1,16 @@
+{
+   "title": "Todos",
+   "history": {
+      "title": "Workout History",
+      "noWorkouts": "No workouts yet"
+   },
+   "settings": {
+      "title": "Settings",
+      "language": "Language",
+      "units": "Units",
+      "metric": "Metric",
+      "imperial": "Imperial",
+      "save": "Save",
+      "cancel": "Cancel"
+   }
+}

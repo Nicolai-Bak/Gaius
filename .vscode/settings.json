@@ -1,0 +1,25 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "cSpell.words": [
+    "codegen",
+    "codepaths",
+    "daisyui",
+    "Dansk",
+    "graphiql",
+    "languagedetector",
+    "liste",
+    "Lngs",
+    "minifiable",
+    "solidjs",
+    "tailwindcss",
+    "Todos",
+    "tsbuildinfo",
+    "urql",
+    "wonka"
+  ],
+  "files.exclude": {
+    "**/.pnpm-store": true
+  }
+}

@@ -1,0 +1,93 @@
+version: "3.9"
+
+services:
+  client-dev:
+    depends_on:
+      - server-dev
+    container_name: gaius-client-dev
+    image: node:19-alpine3.17
+    profiles:
+      - dev
+    # networks:
+    #   - frontend
+    environment:
+      VITE_API_URL: http://api:4005/graphql
+    ports:
+      - 3005:3005
+    command: >
+      sh -c "npm install -g pnpm &&
+             cd /app &&
+             pnpm install &&
+             pnpm dev --port 3005 --host"
+    volumes:
+      - ./client:/app:rw
+      - /app/node_modules
+    restart: always
+
+  gateway-dev:
+    depends_on:
+      - server-dev
+    container_name: gaius-gateway-dev
+    image: node:19-alpine3.17
+    profiles:
+      - dev
+    ports:
+      - 4000:4000
+    command: >
+      sh -c "npm install -g pnpm &&
+             cd /app &&
+             pnpm install &&
+             pnpm dev"
+    volumes:
+      - ./gateway:/app:rw
+      - /app/node_modules
+    restart: always
+
+  server-dev:
+    depends_on:
+      - db
+    container_name: gaius-server-dev
+    image: node:19-alpine3.17
+    profiles:
+      - dev
+    env_file:
+      - ./server/.env.dev
+    # networks:
+    #   - backend
+    ports:
+      - 4005:4005
+    command: >
+      sh -c "npm install -g pnpm &&
+             cd /app &&
+             pnpm install &&
+             npx prisma generate &&
+             npx prisma migrate dev &&
+             pnpm dev"
+    volumes:
+      - ./server:/app:rw
+      - /app/node_modules
+    restart: always
+
+  db:
+    container_name: gaius-db
+    image: postgres:15.2
+    restart: always
+    environment:
+      POSTGRES_USER: gaiususer
+      POSTGRES_PASSWORD_FILE: /run/secrets/gaius-db-password
+      POSTGRES_DB: gaiusdb
+    ports:
+      - 5432:5432
+    secrets:
+      - gaius-db-password
+
+  adminer:
+    container_name: gaius-adminer
+    image: adminer:4.8.1
+    restart: always
+    ports:
+      - 8080:8080
+
+secrets:
+  gaius-db-password:
+    file: ./secrets/gaius-db-password.txt
