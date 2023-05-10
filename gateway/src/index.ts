@@ -1,4 +1,4 @@
-import { createServer } from "http";
+import { createServer } from "node:http";
 import { gateway } from "./gateway";
 
 async function main() {

@@ -7,7 +7,7 @@ export const gateway = async function gateway() {
   const gateway = new ApolloGateway({
     supergraphSdl: new IntrospectAndCompose({
       subgraphs: [
-        { name: "workouts", url: "http://host.docker.internal:4005/graphql" },
+        { name: "workouts", url: "http://server-dev:4005/graphql" },
         //{ name: "products", url: "http://localhost:4002" },
       ],
     }),
