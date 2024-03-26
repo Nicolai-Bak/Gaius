@@ -1,3 +1,16 @@
 {
-   "title": "Todo liste"
+  "title": "Træninger",
+  "history": {
+    "title": "Trænings historik",
+    "noWorkouts": "Ingen træninger fundet"
+  },
+  "settings": {
+    "title": "Indstillinger",
+    "language": "Sprog",
+    "units": "Units",
+    "metric": "Metric",
+    "imperial": "Imperial",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
 }

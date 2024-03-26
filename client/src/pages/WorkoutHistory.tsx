@@ -17,9 +17,19 @@ export const WorkoutHistory: Component = () => {
         when={!workouts.loading && workouts().length !== 0}
         fallback={<div>{i18n.t('history.noWorkouts')}</div>}
       >
-        <For each={workouts()}>
-          {(workout) => <WorkoutHistoryCard workout={workout} />}
-        </For>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          <For each={workouts()}>
+            {(workout) => (
+              <>
+                <WorkoutHistoryCard workout={workout} />
+                <WorkoutHistoryCard workout={workout} />
+                <WorkoutHistoryCard workout={workout} />
+                <WorkoutHistoryCard workout={workout} />
+                <WorkoutHistoryCard workout={workout} />
+              </>
+            )}
+          </For>
+        </div>
       </Show>
     </>
   );
